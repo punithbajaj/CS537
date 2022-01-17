@@ -45,14 +45,14 @@
             <textarea class='col-12' name="plaintext" id="plaintext" rows='10' placeholder="type to encrypt/decrypt ..." ></textarea>
         </div>
         <div class="col-5">
-            <h2>Cypher text</h2>
-            <textarea class='col-12' name="cyphertext" id="cyphertext" rows="10" placeholder="gbkv gl vmxibkg/wvxibkg ..." disabled></textarea>
+            <h2>cipher text</h2>
+            <textarea class='col-12' name="ciphertext" id="ciphertext" rows="10" placeholder="gbkv gl vmxibkg/wvxibkg ..." disabled></textarea>
         </div>
     </div>
 
     <script>
         const plaintextElem = document.getElementById('plaintext');
-        const cyphertextElem = document.getElementById('cyphertext');
+        const ciphertextElem = document.getElementById('ciphertext');
 
         // Run everytime something is entered in the box
         plaintextElem.onkeyup = (e) => {
@@ -78,18 +78,18 @@
                 lookUpTable[InputCharSet[i]] = OutputMapping[i];
             }
 
-            // creating cypher text
-            let cyphertext = '';
+            // creating cipher text
+            let ciphertext = '';
             for (let i = 0; i < plaintext.length; i++) {
 
-                // encrypting user text to cypher text
+                // encrypting user text to cipher text
                 // keeping the spaces unchanged
                 let c = plaintext[i] === ' ' ? ' ' : lookUpTable[plaintext[i]];
-                cyphertext += c;
+                ciphertext += c;
             }
 
-            //outputting the cypher text created
-            cyphertextElem.value = cyphertext;
+            //outputting the cipher text created
+            ciphertextElem.value = ciphertext;
         }
     </script>
 </body>
