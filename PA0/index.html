@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PA0</title>
+
+    <style>
+        :root {
+            font-family: monospace;
+            background-color: #D5E5F2;
+            color: #304269;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width: calc(100vw - 50px);
+            margin: 10px;
+        }
+
+        .col-5 {
+            width: 45%;
+            padding: 0 2vw;
+            min-width: 300px;
+        }
+
+        .col-12 {
+            width: 100%;
+            max-width:100%;
+            border: solid 2px #91BED4 ;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- UI displaying Encipher / Decipher with the simple encryption algorithm -->
+    <h1 style="text-align: center;">Practical Assignment 0 (PA0)</h1>
+    <div class="row">
+        <div class='col-5'>
+            <h2>Plain text</h2>
+            <textarea class='col-12' name="plaintext" id="plaintext" rows='10' placeholder="type to encrypt/decrypt ..." ></textarea>
+        </div>
+        <div class="col-5">
+            <h2>Cypher text</h2>
+            <textarea class='col-12' name="cyphertext" id="cyphertext" rows="10" placeholder="gbkv gl vmxibkg/wvxibkg ..." disabled></textarea>
+        </div>
+    </div>
+
+    <script>
+        const plaintextElem = document.getElementById('plaintext');
+        const cyphertextElem = document.getElementById('cyphertext');
+
+        // Run everytime something is entered in the box
+        plaintextElem.onkeyup = (e) => {
+            
+            // inputing user text
+            let plaintext = e.target.value;
+
+            // Checking weather User input contains only lower english alphabets
+            for (let i = 0; i < plaintext.length; i++) {
+                if (!('a' <= plaintext[i] && plaintext[i] <= 'z') && plaintext[i] !== ' ') {
+                    alert('only lower english letters are valid!'); // alerting if input contains not valid character
+                    window.location.href = '';
+                    break;
+                }
+            }
+
+            // making Lookup table
+            const InputCharSet = 'abcdefghijklmnopqrstuvwxyz'; // Input char set ('a' to 'z')
+            const OutputMapping = 'zyxwvutsrqponmlkjihgfedcba'; // mapping each input alphabet to corresponding reversed set characters
+
+            let lookUpTable = {};
+            for (let i = 0; i < InputCharSet.length; i++) {
+                lookUpTable[InputCharSet[i]] = OutputMapping[i];
+            }
+
+            // creating cypher text
+            let cyphertext = '';
+            for (let i = 0; i < plaintext.length; i++) {
+
+                // encrypting user text to cypher text
+                // keeping the spaces unchanged
+                let c = plaintext[i] === ' ' ? ' ' : lookUpTable[plaintext[i]];
+                cyphertext += c;
+            }
+
+            //outputing the cypher text created
+            cyphertextElem.value = cyphertext;
+        }
+    </script>
+</body>
+
+</html>
